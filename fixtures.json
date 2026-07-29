@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "fixtures": [
+    {"id":"node-npm","root":"apps/node-npm","port":3000,"healthPath":"/health","probePath":"/","expected":"hostlet-fixture-node-v1"},
+    {"id":"next-pnpm","root":"apps/next-pnpm","port":3000,"healthPath":"/","probePath":"/","expected":"hostlet-fixture-next"},
+    {"id":"python-fastapi","root":"apps/python-fastapi","port":3000,"healthPath":"/health","probePath":"/","expected":"hostlet-fixture-python"},
+    {"id":"go-api","root":"apps/go-api","port":8080,"healthPath":"/health","probePath":"/","expected":"hostlet-fixture-go"},
+    {"id":"rust-axum","root":"apps/rust-axum","port":3000,"healthPath":"/health","probePath":"/","expected":"hostlet-fixture-rust"},
+    {"id":"static-site","root":"apps/static-site","port":3000,"healthPath":"/","probePath":"/","expected":"hostlet-fixture-static"},
+    {"id":"bun-api","root":"apps/bun-api","port":3000,"healthPath":"/health","probePath":"/","expected":"hostlet-fixture-bun"},
+    {"id":"yarn-api","root":"apps/yarn-api","port":3000,"healthPath":"/health","probePath":"/","expected":"hostlet-fixture-yarn"},
+    {"id":"managed-postgres","root":"apps/managed-services","port":3000,"healthPath":"/health","probePath":"/postgres","expected":"postgres-ok","addOns":["postgres"]},
+    {"id":"managed-redis","root":"apps/managed-services","port":3000,"healthPath":"/health","probePath":"/redis","expected":"redis-ok","addOns":["redis"]},
+    {"id":"workspace-websocket","root":"apps/workspace-websocket","port":80,"healthPath":"/","probePath":"/","expected":"hostlet-fixture-topology","topology":true}
+  ]
+}
+

@@ -1,0 +1,35 @@
+name: Fixture CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  manifest:
+    runs-on: homelab
+    steps:
+      - uses: actions/checkout@v5
+      - run: node scripts/validate-manifest.mjs
+      - run: git diff --check
+
+  generated-runtime-contracts:
+    runs-on: homelab-heavy
+    steps:
+      - uses: actions/checkout@v5
+      - name: Check generated runtime entrypoints
+        run: |
+          node --check apps/node-npm/server.js
+          node --check apps/yarn-api/server.js
+          node --check apps/managed-services/server.js
+          node --check apps/workspace-websocket/packages/server/src/index.js
+          python3 -m py_compile apps/python-fastapi/main.py
+      - name: Check Go fixture
+        run: go test ./...
+        working-directory: apps/go-api
+      - name: Check Rust fixture
+        run: cargo check --locked
+        working-directory: apps/rust-axum
