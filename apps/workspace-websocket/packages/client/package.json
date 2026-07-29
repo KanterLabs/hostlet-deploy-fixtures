@@ -1,0 +1,11 @@
+{
+  "name": "@hostlet-fixture/client",
+  "private": true,
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "devDependencies": {
+    "vite": "workspace:*"
+  }
+}
+
