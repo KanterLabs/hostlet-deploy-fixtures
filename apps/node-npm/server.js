@@ -2,7 +2,7 @@ const fs = require("node:fs");
 const http = require("node:http");
 
 const port = Number(process.env.PORT || 3000);
-const marker = "hostlet-fixture-node-v1";
+const marker = "hostlet-fixture-node-v2";
 const dataDir = process.env.HOSTLET_DATA_DIR || "/data";
 
 http.createServer((request, response) => {
@@ -17,4 +17,3 @@ http.createServer((request, response) => {
   } catch {}
   response.end(`${marker}:${persisted}`);
 }).listen(port, "0.0.0.0");
-
