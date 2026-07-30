@@ -12,14 +12,23 @@ jobs:
   manifest:
     runs-on: homelab
     steps:
-      - uses: actions/checkout@v5
-      - run: node scripts/validate-manifest.mjs
-      - run: git diff --check
+      - name: Checkout fixture source
+        uses: actions/checkout@v5
+      - name: Validate fixture manifest
+        run: node scripts/validate-manifest.mjs
+      - name: Check whitespace
+        run: git diff --check
 
   generated-runtime-contracts:
     runs-on: homelab-heavy
     steps:
-      - uses: actions/checkout@v5
+      - name: Checkout fixture source
+        uses: actions/checkout@v5
+      - name: Install pinned Go toolchain
+        uses: actions/setup-go@v6
+        with:
+          go-version: "1.23.x"
+          cache-dependency-path: apps/go-api/go.mod
       - name: Check generated runtime entrypoints
         run: |
           node --check apps/node-npm/server.js
