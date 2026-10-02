@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   manifest:
-    runs-on: homelab
+    runs-on: homelab-tiny
     steps:
       - name: Checkout fixture source
         uses: actions/checkout@v5
