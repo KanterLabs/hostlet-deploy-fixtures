@@ -10,20 +10,39 @@ permissions:
 
 jobs:
   manifest:
-    runs-on: homelab
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
     steps:
       - name: Checkout fixture source
         uses: actions/checkout@v5
+      - name: Set up Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: "22"
       - name: Validate fixture manifest
         run: node scripts/validate-manifest.mjs
       - name: Check whitespace
         run: git diff --check
 
   generated-runtime-contracts:
-    runs-on: homelab-heavy
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
     steps:
       - name: Checkout fixture source
         uses: actions/checkout@v5
+      - name: Set up the project Rust toolchain
+        uses: dtolnay/rust-toolchain@6bed0761d98439e5a578e2877258200ad565ba87
+        with:
+          toolchain: "stable"
+          components: rustfmt, clippy
+      - name: Cache Rust dependencies
+        uses: Swatinem/rust-cache@e18b497796c12c097a38f9edb9d0641fb99eee32
+        with:
+          save-if: ${{ github.event_name != 'pull_request' }}
+      - name: Set up Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: "22"
       - name: Install pinned Go toolchain
         uses: actions/setup-go@v6
         with:
